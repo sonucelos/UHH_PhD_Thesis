@@ -1,0 +1,180 @@
+\documentclass[12pt,a4paper,twoside]{book}
+
+
+% =================================================
+% CORE PACKAGES
+% =================================================
+\usepackage[margin=1.2in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{chemformula}
+\usepackage[version=4]{mhchem} % ONLY this, not twice
+\usepackage{titling}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{makecell}
+
+% =================================================
+% TYPOGRAPHY
+% =================================================
+\usepackage{microtype}
+\usepackage{newunicodechar}
+\newunicodechar{−}{-}
+
+% =================================================
+% HYPERLINKS
+% =================================================
+\usepackage{hyperref}
+\usepackage{xurl}
+
+% =================================================
+% BIBLIOGRAPHY
+% =================================================
+\usepackage[backend=biber,style=phys]{biblatex}
+
+\addbibresource{Bibliography/references_m.bib}
+
+% =================================================
+% ABBREVIATIONS
+% =================================================
+\usepackage[acronym]{glossaries}
+\makeglossaries
+\input{Front_Page/abbreviation}
+
+% =================================================
+% PAGE GEOMETRY (INNER/OUTER)
+% =================================================
+\newgeometry{
+  top = 0.75in,
+  bottom = 0.75in,
+  outer = 0.75in,
+  inner = 1.1in
+}
+
+% =================================================
+% HYPERREF SETUP
+% =================================================
+% Acronyms + internal links: BLACK
+% Citations: BLUE
+% URLs: RED
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=red
+}
+
+% =================================================
+% HEADER / FOOTER STYLE
+% =================================================
+\renewcommand{\chaptermark}[1]{%
+  \markboth{\textcolor{blue}{\chaptername\ \thechapter.\ #1}}{}%
+}
+\renewcommand{\sectionmark}[1]{%
+  \markright{\textcolor{blue}{\thesection\ #1}}%
+}
+
+\fancypagestyle{mainstyle}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyhead[LE,RO]{\bfseries\thepage}
+  \fancyhead[LO]{\leftmark}
+  \fancyhead[RE]{\rightmark}
+}
+
+
+
+% =================================================
+% DOCUMENT
+% =================================================
+\begin{document}
+
+% -----------------
+% FRONT MATTER
+% -----------------
+\frontmatter
+\pagestyle{empty}
+
+\input{Front_Page/cover_page}
+\input{Front_Page/dedication}
+
+% Abstract (EN)
+\vspace*{\fill}
+\section*{\Huge\bfseries Abstract}
+\vspace{0.2cm}
+\input{Front_Page/Abstract_en}
+
+\vspace*{\fill}
+
+% Abstract (DE) 
+\newpage
+\section*{\Huge\bfseries Zusammenfassung}
+\input{Front_Page/abstract_de}
+
+% TOC and glossary
+\pagestyle{plain}
+\tableofcontents
+
+\printglossary[type=\acronymtype, title={List of Abbreviations}]
+
+% -----------------
+% MAIN MATTER
+% -----------------
+\mainmatter
+\pagestyle{mainstyle}
+
+\input{Chapter/Introduction/Introduction}
+\input{Chapter/Theory/Theory}
+\input{Chapter/Experimental/Experimental}
+\input{Chapter/Result1/Result1}
+\input{Chapter/Result2/Result2}
+\input{Chapter/Result3/Result3}
+\input{Chapter/Summary/summary}
+
+
+
+%%%%%%%%%%%%% back page %%%%%%%%%%%%%%%%%%%%%%%
+
+
+% -----------------
+% APPENDICES
+% -----------------
+\clearpage
+\appendix
+\pagestyle{plain}
+\input{Back_Page/Appendix/append}
+
+% -----------------
+% BIBLIOGRAPHY
+% -----------------
+\clearpage
+\begingroup
+\sloppy
+\printbibliography
+\endgroup
+
+% -----------------
+% PUBLICATIONS
+% -----------------
+\clearpage
+\input{Back_Page/publication}
+
+% -----------------
+% DECLARATION
+% -----------------
+\clearpage
+\includepdf[pages=-, pagecommand={}, fitpaper=true]{Back_Page/Declaration/oath.pdf}
+
+% -----------------
+% ACKNOWLEDGMENTS
+% -----------------
+\clearpage
+\input{Back_Page/acknowledgment}
+
+\end{document}
